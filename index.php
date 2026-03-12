@@ -8,6 +8,12 @@ spl_autoload_register(function ($class) {
     $path = "classes/" . $class . ".php";
 
     // To check if the file exists before loading
+    if (!file_exists($path)) {
+        
+        // checks the flavors folder
+        $path = "classes/flavors/" . $class . ".php";
+    }
+
     if (file_exists($path)) {
         require $path;
     }
