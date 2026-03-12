@@ -1,23 +1,32 @@
 <?php
 
-/* It loads class files automatically from the classes folder.*/
+/* It loads class files automatically from the includes folder. */
 
 spl_autoload_register(function ($class) {
 
-    // The path where the class files are located
-    $path = "classes/" . $class . ".php";
+    // removes the namespace part
+    $class = str_replace("MyProject\\", "", $class);
 
-    // To check if the file exists before loading
+    // checks the classes folder
+    $path = "includes/classes/" . $class . ".php";
+
+    // checks the Flavors folder
     if (!file_exists($path)) {
-        
-        // checks the flavors folder
-        $path = "classes/flavors/" . $class . ".php";
+        $path = "includes/classes/Flavors/" . $class . ".php";
     }
 
+    // loads the file if it exists
     if (file_exists($path)) {
         require $path;
     }
 });
+
+/* Importing flavor classes */
+use MyProject\ChocolateIceCream;
+use MyProject\VanillaIceCream;
+use MyProject\StrawberryIceCream;
+use MyProject\CookiesAndCreamIceCream;
+
 
 ?> 
 <!DOCTYPE html> 
