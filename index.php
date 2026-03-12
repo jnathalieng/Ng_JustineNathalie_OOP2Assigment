@@ -3,30 +3,20 @@
 /* It loads class files automatically from the includes folder. */
 
 spl_autoload_register(function ($class) {
-
-    // removes the namespace part
-    $class = str_replace("MyProject\\", "", $class);
-
-    // checks the classes folder
-    $path = "includes/classes/" . $class . ".php";
-
-    // checks the Flavors folder
-    if (!file_exists($path)) {
-        $path = "includes/classes/Flavors/" . $class . ".php";
-    }
-
-    // loads the file if it exists
-    if (file_exists($path)) {
-        require $path;
-    }
+    $class = str_replace('MyProject\\', '', $class);
+    $class = str_replace("\\", DIRECTORY_SEPARATOR, $class);
+    
+    $filepath = __DIR__ . '/includes/classes/' . $class . '.php';
+    $filepath = str_replace('/', DIRECTORY_SEPARATOR, $filepath);
+    
+    require_once $filepath;
 });
 
 /* Importing flavor classes */
-use MyProject\ChocolateIceCream;
-use MyProject\VanillaIceCream;
-use MyProject\StrawberryIceCream;
-use MyProject\CookiesAndCreamIceCream;
-
+use MyProject\Flavors\ChocolateIceCream;
+use MyProject\Flavors\VanillaIceCream;
+use MyProject\Flavors\StrawberryIceCream;
+use MyProject\Flavors\CookiesAndCreamIceCream;
 
 ?> 
 <!DOCTYPE html> 
